@@ -1,0 +1,231 @@
+```html
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Форма заказа суши</title>
+    <style>
+      /* Основные стили для body */
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        color: #333;
+        margin: 0;
+        padding: 20px;
+      }
+
+      /* Стиль для контейнера формы */
+      .form-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Заголовок формы */
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Общий стиль для полей ввода */
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"],
+      select,
+      textarea {
+        width: 100%; /* Ширина инпутов 100% от родительского контейнера */
+        padding: 10px;
+        margin: 5px 0 15px 0;
+        /* display - какие виды есть?
+        flex - flexbox - это способ позиционирования элементов на странице
+        inline-block - элементы будут располагаться на одной линии, но не будут занимать всю ширину родительского контейнера
+        block - элементы будут располагаться на отдельных строках, элементы занимающие всю ширину родительского контейнера
+        inline - элементы будут располагаться на одной линии, но не будут занимать всю ширину родительского контейнера
+        */
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box; /* Учитываем padding и border в общей ширине для избежания горизонтального скролла */
+      }
+
+      /* Стили для кнопок */
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+
+      /* Филдсеты и легенды для группировки */
+      fieldset {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+      }
+
+      legend {
+        font-weight: bold;
+        padding: 0 10px;
+      }
+
+      /* Стиль для меток */
+      label {
+        margin-bottom: 10px;
+        display: block;
+        font-weight: bold;
+      }
+
+      /* Стиль для чекбоксов и радиокнопок */
+      .checkbox-group,
+      .radio-group {
+        margin-bottom: 15px;
+      }
+
+      /* Стили для элементов инпутов в группе чекбоксов/радиокнопок */
+      .checkbox-group input,
+      .radio-group input {
+        margin-right: 10px;
+      }
+
+      /* Стили для текстового поля заказа */
+      textarea {
+        height: 100px;
+        resize: none;
+      }
+
+      /* Указание обязательных полей :after - псевдоэлемент, добавляющий * к метке
+      
+      Какие еще есть псевдоэлементы?
+      - :before - псевдоэлемент, добавляющий * к метке
+      - :hover - псевдоэлемент, добавляющий * к метке
+      - :active - псевдоэлемент, добавляющий * к метке
+      - :focus - псевдоэлемент, добавляющий * к метке
+      - :visited - псевдоэлемент, добавляющий * к метке
+
+      */
+
+      .required:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+      }
+
+      input[type="text"]:focus,
+      input[type="email"]:focus,
+      input[type="tel"]:focus,
+      input[type="checkbox"]:focus,
+      input[type="radio"]:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(10, 19, 0, 0.5);
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form-container">
+      <h1>Заказ суши</h1>
+      <form action="/submit-order" method="GET">
+        <!-- Информация о заказчике -->
+        <fieldset>
+          <legend>Информация о заказчике</legend>
+          <label for="name" class="required">Имя</label>
+          <input type="text" id="name" name="name" required />
+
+          <label for="email" class="required">Email</label>
+          <input type="email" id="email" name="email" required />
+
+          <label for="phone">Телефон</label>
+          <input type="tel" id="phone" name="phone" />
+        </fieldset>
+
+        <!-- Выбор роллов -->
+        <fieldset>
+          <legend>Выбор роллов</legend>
+          <label class="required">Выберите типы роллов</label>
+
+          <div class="checkbox-group">
+            <label
+              ><input type="checkbox" name="rolls[]" value="Филадельфия" />
+              Филадельфия</label
+            >
+            <label
+              ><input type="checkbox" name="rolls[]" value="Калифорния" />
+              Калифорния</label
+            >
+            <label
+              ><input type="checkbox" name="rolls[]" value="Дракон" />
+              Дракон</label
+            >
+            <label
+              ><input type="checkbox" name="rolls[]" value="Спайси" />
+              Спайси</label
+            >
+          </div>
+        </fieldset>
+
+        <!-- Специальные пожелания -->
+        <fieldset>
+          <legend>Специальные пожелания</legend>
+          <label for="special-instructions">Ваши пожелания</label>
+          <textarea
+            id="special-instructions"
+            name="special_instructions"
+            placeholder="Введите ваши пожелания здесь..."
+          ></textarea>
+        </fieldset>
+
+        <!-- Время доставки -->
+        <fieldset>
+          <legend>Время доставки</legend>
+          <label for="delivery-time">Выберите время доставки</label>
+          <select id="delivery-time" name="delivery_time">
+            <option value="asap">Как можно быстрее</option>
+            <option value="12-14">12:00 - 14:00</option>
+            <option value="14-16">14:00 - 16:00</option>
+            <option value="16-18">16:00 - 18:00</option>
+            <option value="18-20">18:00 - 20:00</option>
+            <option value="server-view">Видит человек</option>
+          </select>
+        </fieldset>
+
+        <!-- Тип оплаты -->
+        <fieldset>
+          <legend>Тип оплаты</legend>
+          <div class="radio-group">
+            <label
+              ><input type="radio" name="payment" value="cash" required />
+              Наличные</label
+            >
+            <label
+              ><input type="radio" name="payment" value="card" /> Карта</label
+            >
+            <label
+              ><input type="radio" name="payment" value="online" /> Онлайн
+              оплата</label
+            >
+          </div>
+        </fieldset>
+
+        <!-- Кнопка отправки -->
+        <input type="submit" value="Оформить заказ" />
+      </form>
+    </div>
+  </body>
+</html>
+
+```

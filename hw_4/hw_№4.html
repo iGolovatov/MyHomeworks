@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Форма для заказа пиццы</title>
+    
+    <!-- http://127.0.0.1:51687/%D0%94%D0%97/HW%20%E2%84%964/hw_%E2%84%964.html?name=%D0%90%D0%BD%D0%B4%D1%80%D0%B5%D0%B9&phone=%2B79963791212&email=igolovatov%40gmail.com&pizza=%D0%9F%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8&pizza=%D0%A1+%D0%BA%D1%83%D1%80%D0%B8%D1%86%D0%B5%D0%B9&pizza=4+%D1%81%D1%8B%D1%80%D0%B0&pizza=%D0%93%D0%B0%D0%B2%D0%B0%D0%B9%D1%81%D0%BA%D0%B0%D1%8F+%28%D1%81+%D0%B4%D0%BE%D0%B1%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5%D0%BC+%D0%B0%D0%BD%D0%B0%D0%BD%D0%B0%D1%81%D0%B0%29&comments=%D0%92%D1%81%D0%B5+%D0%BF%D0%B8%D1%86%D1%86%D1%8B+%D1%80%D0%B0%D0%B7%D1%80%D0%B5%D0%B7%D0%B0%D1%82%D1%8C+%D0%BF%D0%BE+6+%D0%BA%D1%83%D1%81%D0%BA%D0%BE%D0%B2&time=18-20&payment=card -->
+    
+    <style>
+    h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        margin-top: 0px;
+    }
+
+    body {
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: rgb(230, 220, 202);
+        color: #351c05;
+        margin: 0;
+        padding: 20px;
+        background-image: url(pizza.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        
+    }
+
+    div.form-container {
+        background-color: #b8c198;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(28, 28, 28, 0.1);
+        max-width: 600px;
+        margin: 0 auto;
+        background-image: url(phon.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        border-radius: 5%;
+    }
+
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"],
+    select,
+    textarea {
+        width: 100%;
+        margin: 10px 0 20px 0;
+        padding: 5px;
+        display: inline-block;
+        border: 1px solid #1b1414;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="submit"] {
+        background-color: #199c0a;
+        color: rgb(9, 8, 8);
+        padding: 15px 0;
+        margin: 8px 0;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        width: 100%;
+    }
+    input[type="submit"]:hover {
+        background-color: #09e914;
+    }
+    fieldset {
+        border: 2px solid #6f716e;
+        padding: 5px;
+        margin-bottom: 20px;
+        border-radius: 4px;
+    }
+
+    legend {
+        font-weight: bold;
+        padding: 0 10px;
+    }
+
+    label {
+        margin-bottom: 7px;
+        display: block;
+        font-weight: bold;
+    }
+    .checkbox-group,
+    .radio-group {
+        margin-bottom: 15px;
+    }
+
+    .checkbox-group input,
+    .radio-group input {
+        margin-right: 10px;
+    }
+
+    textarea {
+        height: 100px;
+        resize: none;
+    }
+
+    .required:after {
+        content: "*";
+        color: red;
+        margin-left: 5px;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="tel"]:focus,
+    input[type="checkbox"]:focus,
+    input[type="radio"]:focus,
+    select:focus,
+    textarea:focus {
+        border-color: #4caf50;
+        box-shadow: 0 0 5px rgba(10, 19, 0, 0.5);
+        outline: none;
+    }
+    
+    
+    </style>
+</head>
+<body>
+    <div class="form-container">
+    <h1>Форма для заказа пиццы</h1>
+    <form action="" method="GET">
+        <!-- Информация о заказчике -->
+        <fieldset>
+        <legend>Информация о заказчике</legend>
+        <label for="name" class="required">Имя</label>
+        <input type="text" id="name" name="name" required />
+
+        <label for="phone" class="required">Телефон</label>
+        <input type="tel" id="phone" name="phone" />
+
+        <label for="email">E-mail</label>
+        <input type="email" name="email" id="email" />
+        </fieldset>
+        <!-- Выбор пиццы -->
+        <fieldset>
+        <legend>Выбор пиццы</legend>
+        <label class="required">Выберите пиццу</label>
+        <div class="checkbox_group">
+            <label>
+            <input
+                type="checkbox"
+                name="pizza"
+            value="Пепперони"
+            />Пепперони</label
+            >
+            <label>
+            <input type="checkbox" name="pizza" value="С курицей" />С
+            курицей</label
+            >
+            <label>
+            <input type="checkbox" name="pizza" value="4 сыра" />4 сыра</label
+            >
+            <label>
+            <input type="checkbox" name="pizza" value="С ветчиной и сыром" />С
+            ветчиной и сыром</label
+            >
+            <label>
+            <input
+                type="checkbox"
+                name="pizza"
+                value="Гавайская (с добавлением ананаса)"
+            />Гавайская (с добавлением ананаса)</label
+            >
+        </div>
+        </fieldset>
+        <!-- выбор размера пиццы -->
+        <fieldset>
+            <legend>Размер пиццы</legend>
+            <div class="radio-group">
+                <label for="radio-group" class="required"
+                >Выберите размер пиццы</label
+                >
+                <label
+                ><input type="radio" name="size" value="20" required />
+                Малый размер 20 см.</label
+                >
+                <label
+                ><input type="radio" name="size" value="30" /> Средний размер 30 см.</label>
+                <label
+                ><input type="radio" name="size" value="40" /> Большой размер 40 см.</label
+                >
+            </div>
+            </fieldset>
+                        <!-- Дополнительные ингридиенты -->
+            <fieldset>
+                <legend>Дополнительные ингредиенты</legend>
+                <label>Выберите дополнительные ингредиенты</label>
+                <div class="checkbox_group">
+                    <label>
+                    <input
+                        type="checkbox"
+                        name="ingrediends"
+                    value="cheese"
+                    />Сыр</label
+                    >
+                    <label>
+                    <input type="checkbox" name="ingrediends" value="ohot_colbaski" />Охотничьи колбаски</label
+                    >
+                    <label>
+                    <input type="checkbox" name="ingrediends" value="tomato" />Помидоры</label
+                    >
+                    <label>
+                    <input type="checkbox" name="ingrediends" value="Halapenio" />Халапеньо</label
+                    >
+                    <label>
+                    <input
+                        type="checkbox"
+                        name="ingridiends"
+                        value="red_pepper"
+                    />Красный перчик</label
+                    >
+                </div>
+                </fieldset>
+
+        <!-- Особые пожелания -->
+        <fieldset>
+        <legend>Особые пожелания</legend>
+        <label for="comments">Ваши пожелания к заказу</label>
+        <textarea
+            name="comments"
+            id="comments"
+            placeholder="Погдотовьте пожалуйста пиццу на 8 персон... "
+        ></textarea>
+        </fieldset>
+
+        <!-- Время доставки -->
+        <fieldset>
+        <legend>Время доставки</legend>
+        <label for="time" class="required">Выберите время доставки</label>
+        <select id="time" name="time">
+            <option value="quick">Ближайшее время</option>
+            <option value="10-12">10:00 - 12:00</option>
+            <option value="12-14">12:00 - 14:00</option>
+            <option value="14-16">14:00 - 16:00</option>
+            <option value="16-18">16:00 - 18:00</option>
+            <option value="18-20">18:00 - 20:00</option>
+            <option value="20-22">20:00 - 22:00</option>
+        </select>
+        </fieldset>
+
+        <!-- Выбор типа оплаты -->
+        <fieldset>
+        <legend>Тип оплаты</legend>
+        <div class="radio-group">
+            <label for="radio-group" class="required"
+            >Выберите cпособ оплаты</label
+            >
+            <label
+            ><input type="radio" name="payment" value="cash" required />
+            Наличными</label
+            >
+            <label
+            ><input type="radio" name="payment" value="card" /> Картой
+            курьеру</label
+            >
+            <label
+            ><input type="radio" name="payment" value="online" /> Онлайн в
+            браузере</label
+            >
+        </div>
+        </fieldset>
+
+        <!-- Кнопка: отправить заказ -->
+        <input type="submit" value="Оформить заказ" />
+    </form>
+    </div>
+</body>
+</html>
