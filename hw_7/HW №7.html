@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Домашнее задание № 7</title>
+</head>
+<body>
+<h1>Домашнее задание № 7</h1>
+<h2>В данном задании я буду практиковаться в работе со строками и массивами, а также в интерактивном взаимодействии с
+    пользователем с помощью JavaScript. Буду Учиться запрашивать данные у пользователя, модифицировать массивы и
+    выводить результаты в удобном формате.</h2>
+<script>
+    let shoppingArray = prompt("Введите список товаров, разделенный пробелами:").trim().split(" ");
+    if (shoppingArray[0] === '') {
+        alert("Неверный ввод, перезагрузите страницу!");
+    } else {
+        console.log(shoppingArray);
+        alert(`Ваш список содержит ${shoppingArray.length} наименования.`);
+        let userChoice = parseInt(prompt(`Выберите номер товара из введенного Вами списка`));
+        if (userChoice <= shoppingArray.length && userChoice > 0) {
+            alert(`Вы выбрали '${shoppingArray[userChoice - 1]}'`);
+            let isChange = prompt(`Хотите ли Вы заменить выбранный товар? (напишите "да" или "нет")`).trim().toLowerCase();
+            if (isChange === "да") {
+                let newItemName = prompt("Введите новое наименование товара:");
+                shoppingArray[userChoice - 1] = newItemName;
+                alert(`Товар заменен на '${newItemName}'`);
+                alert(`Итоговый список товаров: '${shoppingArray.join(", ")}'`);
+            } else if (isChange === "нет") {
+                alert(`Итоговый список товаров останется без изменений: '${shoppingArray.join(", ")}'`);
+            } else {
+                alert("Неверный ввод, перезагрузите страницу!");
+            }
+        } else {
+            alert("Неверный ввод, перезагрузите страницу!");
+        }
+    }
+</script>
+</body>
+</html>
