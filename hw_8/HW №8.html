@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Домашнее задание № 8</title>
+</head>
+<body>
+    <h1>Домашнее задание № 8</h1>
+    <h2>Выполнил студент 413 группы, Андрей Головатов</h2>
+    <script>
+        // Секретное послание от Владимира :)
+const secretLetter = [
+['DFВsjl24sfFFяВАДОd24fssflj234'],
+['asdfFп234рFFdо24с$#afdFFтasfо'], 
+['оafбasdf%^о^FFжа$#af243ю'], 
+['afпFsfайFтFsfо13н'], 
+['fн13Fа1234де123юsdсsfь'], 
+['чFFтF#Fsfsdf$о'], 
+['и$##sfF'], 
+['вSFSDам'], 
+['пSFоsfнрSDFаSFвSDF$иFFтsfaсSFя'], 
+['FFэasdfтDFsfоasdfFт'],
+['FяDSFзFFsыSfкFFf'], 
+];
+
+// Массив с маленькими русскими буквами
+const smallRus = ['а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и',
+'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф',
+'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я'];
+
+// Создаем пустой массив для хранения результата (расшифрованного послания)
+let result = [];
+
+// Внешний цикл для перебора строк secretLetter
+for (let i = 0; i < secretLetter.length; i++) {
+    // Вложенный цикл для перебора символов в каждой строке
+    for (let j = 0; j < secretLetter[i][0].length; j++) {
+        // Получаем текущий символ
+        let symbol = secretLetter[i][0][j];
+        // Проверяем, является ли символ маленькой русской буквой
+        if (smallRus.includes(symbol)) {
+            // Если да, добавляем его в массив result
+            result.push(symbol);
+        }
+    }
+    // Добавляем пробел после каждой обработанной строки
+    result.push(' ');
+}
+// Объединяем элементы массива result в строку с пробелами между ними и выводим в консоль
+console.log("Расшифрованное послание:", result.join(''));
+    </script>
+</body>
+</html>
