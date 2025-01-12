@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Домашнее задание № 12</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="text-center mb-4">Погода</h1>
+
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Введите город"
+          id="cityInput"
+        />
+        <button class="btn btn-dark" type="button" id="searchButton">
+          Поиск
+        </button>
+      </div>
+
+      <button id="weatherButton" class="btn btn-dark">
+        Показать погоду
+      </button>
+      <div id="weatherInfo" class="mt-4"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- JS код -->
+    <script>
+      const button = document.querySelector("#weatherButton");
+      const info = document.querySelector("#weatherInfo");
+      const searchButton = document.getElementById("searchButton");
+      const cityInput = document.getElementById("cityInput");
+
+      // Данные о погоде
+      const apiAnswer = {
+        coord: { lon: 37.6156, lat: 55.7522 },
+        weather: [
+          { id: 804, main: "Clouds", description: "пасмурно", icon: "04n" },
+        ],
+        base: "stations",
+        main: {
+          temp: 8.14,
+          feels_like: 6.25,
+          temp_min: 7.24,
+          temp_max: 8.52,
+          pressure: 1025,
+          humidity: 80,
+          sea_level: 1025,
+          grnd_level: 1005,
+        },
+        visibility: 10000,
+        wind: { speed: 3.01, deg: 247, gust: 7.69 },
+        clouds: { all: 100 },
+        dt: 1729952527,
+        sys: {
+          type: 2,
+          id: 2094500,
+          country: "RU",
+          sunrise: 1729916600,
+          sunset: 1729951403,
+        },
+        timezone: 10800,
+        id: 524901,
+        name: "Москва",
+        cod: 200,
+      };
+
+      // Загрузка данных из LocalStorage при загрузке страницы
+      window.onload = () => {
+        const savedCity = localStorage.getItem("city");
+        if (savedCity) {
+          cityInput.value = savedCity; // Устанавливаем значение в поле ввода
+        }
+      };
+
+      // Проверка поля ввода
+      function checkingInput() {
+        const city = cityInput.value;
+        if (city.trim() === "") {
+          alert("Пожалуйста, введите название города.");
+          return;
+        }
+
+        // Преобразование первой буквы в заглавную
+        const formattedCity =
+          city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+        // Сохранение значения
+        localStorage.setItem("city", formattedCity);
+      }
+
+      searchButton.addEventListener("click", checkingInput);
+
+      button.addEventListener("click", () => {
+        info.innerHTML = ""; // Очистка предыдущих данных
+
+        // Получение введенного города из LocalStorage
+        let city = localStorage.getItem("city");
+
+        // Если город не найден в LocalStorage, используем "Новосибирск" по умолчанию
+        if (!city) {
+          city = "Новосибирск";
+        }
+
+        // Преобразование первой буквы в заглавную после получения из LocalStorage
+        city = city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+
+        const data = apiAnswer;
+        data.name = city; // Используем введенный город
+
+        const card = document.createElement("div");
+        card.classList.add("weather_card");
+
+        const cardBody = document.createElement("div");
+        cardBody.classList.add("card_body");
+
+        const nameCity = document.createElement("h5");
+        nameCity.classList.add("city_heading");
+        nameCity.textContent = `Город: ${data.name}, ${data.sys.country}`;
+
+        const temp = document.createElement("p");
+        temp.classList.add("card_text");
+        temp.textContent = `Температура: ${data.main.temp} градусов`;
+
+        const description = document.createElement("p");
+        description.classList.add("card_text");
+        description.textContent = `Описание: ${data.weather[0].description}`;
+
+        // Проверка температуры
+        if (data.main.temp > 8) {
+          const coldMessage = document.createElement("p");
+          coldMessage.classList.add("card_text");
+          coldMessage.textContent = "Хорошечно";
+          cardBody.appendChild(coldMessage);
+        } else if (data.main.temp < 10 && data.main.temp > 5) {
+          const mildMessage = document.createElement("p");
+          mildMessage.classList.add("card_text");
+          mildMessage.textContent = "Прохладненько";
+          cardBody.appendChild(mildMessage);
+        } else {
+          const warmMessage = document.createElement("p");
+          warmMessage.classList.add("card_text");
+          warmMessage.textContent = "И так сойдет";
+          cardBody.appendChild(warmMessage);
+        }
+
+        cardBody.appendChild(nameCity);
+        cardBody.appendChild(temp);
+        cardBody.appendChild(description);
+        card.appendChild(cardBody);
+        info.appendChild(card);
+      });
+      
+    </script>
+  </body>
+</html>
