@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Домашнее задание № 6</title>
+</head>
+<body>
+    <p id="result">Перезагрузите страницу, если вы видите это сообщение =)</p>
+    <script>
+    const paragraph = document.getElementById("result");
+    const userInput = prompt("Пожалуйста, введите свое имя");
+    console.log((userInput));
+    console.log((userInput).trimStart());
+    let result = parseInt(prompt("Пожалуйста, введите свою оценку (от 1 до 12)"));
+    if (isNaN(result) || result < 1 || result > 12) {alert(("Оценка должна быть числом от 1 до 12"));}
+    else if (result >=1 && result <=3) level = ("Ваш уровень подготовки Начальный! Рекомендую разобраться с проблемными вопросами!");
+    else if (result >= 4 && result <= 6) level = ("Ваш уровень подготовки Средний! Нужно потренироваться! ");
+    else if (result >= 7 && result <= 9) level = ("Ваш уровень подготовки Высокий! Молодец!");
+    else if (result >= 10 && result <=12) level = ("Ваш уровень подготовки Отличный! Так держать!");
+    if (userInput !== null) {paragraph.textContent = `Уважаемый студент, ${userInput}. Вы указали оценку: ${result}. ${level}`;};
+    </script>
+</body>
+</html>
