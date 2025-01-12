@@ -1,0 +1,42 @@
+table {border-collapse: collapse;
+border: 1px solid black;;
+}
+
+html>body {background-color: rgb(245, 184, 115);}
+
+th,td {border: 1px solid black;}
+
+th {text-align: center;
+background-color: brown;}
+
+footer{text-align: center;
+color: green;}
+
+html {scroll-behavior: smooth;}
+
+header {position: sticky;
+top: 0;
+background-color: rgb(155, 106, 46);
+padding: 10px;}
+
+header {font-size: 20px;
+text-align: center;}
+
+header>nav>ul>li {display:inline}
+
+footer {background-color: rgba(254, 88, 88, 0.437);}
+
+blockquote {
+    background-color: rgb(247, 175, 86);
+    text-align: center;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;}
+
+blockquote.bq1{color:brown;
+font-family: monospace;
+font-size: large;}
+blockquote.bq2{color:black;}
+
+tbody tr:nth-child(odd) {background-color: rgb(152, 110, 81);}
+code{font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;}
