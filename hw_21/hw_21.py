@@ -56,7 +56,15 @@ source_image.save(
 )
 
 
-def compress_image(file_path, quality: int = 40, format: str = "avif"):
+def compress_image(file_path, quality: int = 40, format: str = "avif") -> None:
+    """
+    Сжимает изображение в указанный формат с заданным качеством.
+
+    Параметры:
+        file_path (str): Путь к исходному файлу изображения
+        quality (int): Качество сжатия (1-100), по умолчанию 40
+        format (str): Выходной формат ('webp', 'avif', или 'heic')
+    """
     # Поддерживаемые форматы
     supported_formats = ["webp", "avif", "heic"]
     # Проверяем формат
@@ -78,8 +86,11 @@ def compress_image(file_path, quality: int = 40, format: str = "avif"):
 
 def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[str]:
     """
-    Задача: рекурсивный обход директории или проверка одного файла для получения всех изображений.
-Проверки: существование пути, валидность расширений (используйте ALLOWED_EXTENSIONS).
+    Рекурсивно сканирует директорию или проверяет отдельный файл на наличие допустимых изображений.
+
+    Параметры:
+        source_path (str): Путь к директории или файлу для сканирования
+        allowed_extensions (list[str]): Список разрешенных расширений файлов
     """
     # Проверяем существование пути
     if not os.path.exists(source_path):
@@ -100,7 +111,10 @@ def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[st
 
     return images
 
-def main():
+def main() -> None:
+    """
+    Основная точка входа программы.
+    """
     user_path = input('Введите путь к папке или файлу: ')
 
     images = get_images_paths(user_path, ALLOWED_EXTENSIONS)
