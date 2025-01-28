@@ -18,18 +18,18 @@ ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'dng']
 
 source_path = r"C:\Users\New\PycharmProjects\MyHomeworks"  # Путь к папке с изображениями
 
-# Вариант 1: Простой обход через listdir
-files = os.listdir(source_path)  # Получаем список файлов в директории
-for file in files:
-    full_path = os.path.join(source_path, file)  # Формируем полный путь
-    if os.path.isfile(full_path):  # Проверяем что это файл
-        print(f"Найден файл: {full_path}")
-
-# Вариант 2: Рекурсивный обход через walk
-for root, dirs, files in os.walk(source_path):  # root - текущая директория, dirs - папки, files - файлы
-    for file in files:
-        full_path = os.path.join(root, file)  # Формируем полный путь
-        print(f"Найден файл: {full_path}")
+# # Вариант 1: Простой обход через listdir
+# files = os.listdir(source_path)  # Получаем список файлов в директории
+# for file in files:
+#     full_path = os.path.join(source_path, file)  # Формируем полный путь
+#     if os.path.isfile(full_path):  # Проверяем что это файл
+#         print(f"Найден файл: {full_path}")
+#
+# # Вариант 2: Рекурсивный обход через walk
+# for root, dirs, files in os.walk(source_path):  # root - текущая директория, dirs - папки, files - файлы
+#     for file in files:
+#         full_path = os.path.join(root, file)  # Формируем полный путь
+#         print(f"Найден файл: {full_path}")
 
 # Открываем изображение
 # Исходное изображение
@@ -64,6 +64,8 @@ def compress_image(file_path, quality: int = 40, format: str = "avif"):
         raise ValueError(f"Формат {format} не поддерживается")
     # Открываем изображение
     image = Image.open(file_path)
+    # Отрезаем от file_path .расширение - чтобы на выходе не получать file.png.webp
+    file_path = file_path.split(".")[-2]
     # Проверяем на avif webp
     if format in ["webp", "avif"]:
         image.save(f"{file_path}.{format}", format=format, quality=quality)
@@ -98,6 +100,15 @@ def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[st
 
     return images
 
+def main():
+    user_path = input('Введите путь к папке или файлу: ')
 
-# Тестируем функцию на heic
-compress_image(my_image, format="heic")
+    images = get_images_paths(user_path, ALLOWED_EXTENSIONS)
+
+    for image in images:
+        compress_image(image, format="webp")
+
+if __name__ == '__main__':
+    main()
+
+
