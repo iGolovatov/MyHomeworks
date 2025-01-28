@@ -12,6 +12,8 @@ my_image = r'C:\Users\New\PycharmProjects\MyHomeworks\hw_21\Input.jpg'
 # Регистрируем форматы
 register_heif_opener()
 
+ALLOWED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'dng']
+
 # Пример 1: Обход файловой системы
 
 source_path = r"C:\Users\New\PycharmProjects\MyHomeworks"  # Путь к папке с изображениями
@@ -54,7 +56,7 @@ source_image.save(
 )
 
 
-def compress_image(file_path, quality:int = 40, format: str ="avif"):
+def compress_image(file_path, quality: int = 40, format: str = "avif"):
     # Поддерживаемые форматы
     supported_formats = ["webp", "avif", "heic"]
     # Проверяем формат
@@ -70,6 +72,32 @@ def compress_image(file_path, quality:int = 40, format: str ="avif"):
         heif_file = heif_from_pillow(image)
         heif_file.save(f"{file_path}.{format}", quality=quality)
         return
+
+
+def get_images_paths(source_path: str, allowed_extensions: list[str]) -> list[str]:
+    """
+    Задача: рекурсивный обход директории или проверка одного файла для получения всех изображений.
+Проверки: существование пути, валидность расширений (используйте ALLOWED_EXTENSIONS).
+    """
+    # Проверяем существование пути
+    if not os.path.exists(source_path):
+        raise ValueError(f"Путь {source_path} не существует")
+
+    # Проверяем, папка или файл
+    if os.path.isfile(source_path):
+        return [source_path]
+
+    # Мы поняли что на входе папка и рекурсивно обходим её собирая файлы указанных расширений
+    images = []
+    for root, dirs, files in os.walk(source_path):
+        for file in files:
+            full_path = os.path.join(root, file)
+            if os.path.isfile(full_path):
+                if file.split(".")[-1] in allowed_extensions:
+                    images.append(full_path)
+
+    return images
+
 
 # Тестируем функцию на heic
 compress_image(my_image, format="heic")
