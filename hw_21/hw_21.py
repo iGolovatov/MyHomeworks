@@ -13,7 +13,6 @@ my_image = r'C:\Users\New\PycharmProjects\MyHomeworks\hw_21\Input.jpg'
 register_heif_opener()
 
 # Пример 1: Обход файловой системы
-import os
 
 source_path = r"C:\Users\New\PycharmProjects\MyHomeworks"  # Путь к папке с изображениями
 
@@ -53,3 +52,24 @@ source_image.save(
     "output.avif",
     quality=33
 )
+
+
+def compress_image(file_path, quality:int = 40, format: str ="avif"):
+    # Поддерживаемые форматы
+    supported_formats = ["webp", "avif", "heic"]
+    # Проверяем формат
+    if format not in supported_formats:
+        raise ValueError(f"Формат {format} не поддерживается")
+    # Открываем изображение
+    image = Image.open(file_path)
+    # Проверяем на avif webp
+    if format in ["webp", "avif"]:
+        image.save(f"{file_path}.{format}", format=format, quality=quality)
+        return
+    if format == "heic":
+        heif_file = heif_from_pillow(image)
+        heif_file.save(f"{file_path}.{format}", quality=quality)
+        return
+
+# Тестируем функцию на heic
+compress_image(my_image, format="heic")
