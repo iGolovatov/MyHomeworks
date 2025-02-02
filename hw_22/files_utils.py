@@ -107,3 +107,46 @@ def append_csv(*data: dict, file_path: str, delimiter=';', encoding: str = 'utf-
             fieldnames=data[0].keys(),
         ).writerows(data)
 
+# Функции для работы с TXT файлами
+
+def read_txt(file_path: str, encoding: str = 'utf-8') -> list[str]:
+    """
+    Функция для чтения txt файла
+    :param file_path:
+    :param encoding:
+    :return:
+    """
+    try:
+        with open(file_path, encoding=encoding) as f:
+            return f.readlines()
+    except FileNotFoundError:
+        print(f'Файл {file_path} не найден')
+        return []
+
+
+def write_txt(*data: str, file_path: str, encoding: str = 'utf-8') -> None:
+    """
+    Функция для записи данных в txt файл
+    :param data:
+    :param file_path:
+    :param encoding:
+    :return:
+    """
+    with open(file_path, 'w', encoding=encoding) as f:
+        f.write('\n'.join(data))
+
+
+def append_txt(*data: str, file_path: str, encoding: str = 'utf-8') -> None:
+    """
+    Функция для добавления данных в txt файл
+    :param data:
+    :param file_path:
+    :param encoding:
+    :return:
+    """
+    try:
+        with open(file_path, 'a', encoding=encoding) as f:
+            f.write('\n' + '\n'.join(data))
+    except FileNotFoundError:
+        write_txt(*data, file_path=file_path, encoding=encoding)
+
