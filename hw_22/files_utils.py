@@ -150,3 +150,12 @@ def append_txt(*data: str, file_path: str, encoding: str = 'utf-8') -> None:
     except FileNotFoundError:
         write_txt(*data, file_path=file_path, encoding=encoding)
 
+# Функция для работы с YAML
+
+def read_yaml(file_path: str) -> list[dict[str, Any]]:
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return yaml.safe_load(f)
+    except FileNotFoundError:
+        print(f'Файл {file_path} не найден')
+        return []
