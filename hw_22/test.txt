@@ -1,0 +1,3 @@
+['name', 'age', 'city']
+['Andrew', 32, 'Novosibirsk']
+['Maxim', 22, 'Novosibirsk']

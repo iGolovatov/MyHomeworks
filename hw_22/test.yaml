@@ -1,0 +1,38 @@
+# Настройки погодного приложения
+app:
+  name: "WeatherApp"
+  version: "1.0.0"
+  author: "John Doe"
+  language: "en"
+
+# Настройки API
+api:
+  weather:
+    provider: "OpenWeatherMap"
+    base_url: "https://api.openweathermap.org/data/2.5/weather"
+    api_key: "your_api_key_here"  # Замените на ваш API-ключ
+    units: "metric"  # metric для Celsius, imperial для Fahrenheit
+  geocoding:
+    provider: "OpenCageData"
+    base_url: "https://api.opencagedata.com/geocode/v1/json"
+    api_key: "your_geocoding_api_key_here"  # Замените на ваш API-ключ
+
+# Города для отображения погоды
+cities:
+  - name: "Moscow"
+    country: "RU"
+    latitude: 55.7558
+    longitude: 37.6176
+  - name: "New York"
+    country: "US"
+    latitude: 40.7128
+    longitude: -74.0060
+  - name: "Tokyo"
+    country: "JP"
+    latitude: 35.6895
+    longitude: 139.6917
+
+# Настройки обновления данных
+update:
+  interval: 300  # Интервал обновления данных в секундах (5 минут)
+  retry_on_failure: 3  # Количество попыток при ошибке
