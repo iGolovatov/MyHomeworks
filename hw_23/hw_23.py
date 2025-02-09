@@ -94,4 +94,22 @@ def username_validator(func: Callable[[str, str], None]) -> Callable[[str, str],
 
 file_path = 'Login&Password.csv'
 
+@username_validator
+@password_validator()
+def register_user(username: str, password: str) -> None:
+    """
+    Функция-декоратор регистрации нового пользователя. Дозаписывает данные о пользователе
+    в CSV файл
+    :param username:
+    :param password:
+    :return:
+    """
+    with open(file_path, 'a', encoding='utf-8') as f:
+        writer = csv.writer(f)
+        writer.writerow([username, password])
+    print('Пользователь успешно зарегистрирован')
 
+try:
+    register_user('username', 'Password1!')
+except ValueError as e:
+    print(e)
