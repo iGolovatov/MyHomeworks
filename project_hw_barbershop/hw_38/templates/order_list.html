@@ -1,0 +1,27 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Заказы</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script src="{% static 'main.js' %}"></script>
+</head>
+<body>
+    <h1>Заказы:</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Клиент</th>
+                <th>Статус заявки</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.client_name }}</td>
+                    <td>{{ order.status }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+</body>

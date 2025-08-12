@@ -1,0 +1,20 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Заказ № {{ order_id }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script src="{% static 'main.js' %}"></script>
+</head>
+<body>
+    <h1>Заявка № {{ order_id }}</h1>
+    {% if order %}
+        <p>Номер заявки: {{ order.id }}</p>
+        <p>Имя клиента: {{ order.client_name }}</p>
+        <p>Услуги: {% for service in order.services %} "{{ service }}" {% endfor %}</p>
+        <p>Мастер: {{ master.name }}</p>
+        <p>Дата записи: {{ order.date }}</p>
+        <p>Статус записи: {{ order.status }}</p>
+    {% else %}
+        <p>Заказ не найден!</p>
+    {% endif %}
+</body>

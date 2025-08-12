@@ -1,0 +1,18 @@
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>Барбершоп "Лысина"</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
+    <script src="{% static 'main.js' %}"></script>
+</head>
+<body>
+    <h1>Приветствуем Вас в нашем барбершопе "Лысина"</h1>
+    <h3>Наши мастера</h3>
+    {% for master in masters %}
+        <p>{{ master.name }}</p>
+    {% endfor %}
+    <h3>Услуги:</h3>
+    {% for service in services %}
+        <p>{{ service }}</p>
+    {% endfor %}
+</body>
