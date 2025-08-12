@@ -11,7 +11,9 @@ def thanks(request):
 
 
 def orders_list(request):
-    return render(request,'order_list.html', {'orders': orders})
+    if request.user.is_staff:
+        return render(request, 'order_list.html', {'orders': orders})
+    return render(request, 'order_list.html')
 
 
 def order_detail(request, order_id):

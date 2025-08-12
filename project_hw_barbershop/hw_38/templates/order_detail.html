@@ -1,20 +1,57 @@
-{% load static %}
-<head>
-    <meta charset="UTF-8">
-    <title>Заказ № {{ order_id }}</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'main.css' %}">
-    <script src="{% static 'main.js' %}"></script>
-</head>
-<body>
-    <h1>Заявка № {{ order_id }}</h1>
-    {% if order %}
-        <p>Номер заявки: {{ order.id }}</p>
-        <p>Имя клиента: {{ order.client_name }}</p>
-        <p>Услуги: {% for service in order.services %} "{{ service }}" {% endfor %}</p>
-        <p>Мастер: {{ master.name }}</p>
-        <p>Дата записи: {{ order.date }}</p>
-        <p>Статус записи: {{ order.status }}</p>
-    {% else %}
-        <p>Заказ не найден!</p>
-    {% endif %}
-</body>
+{% extends 'base.html' %}
+
+{% block title %}Заказ № {{ order.id }}{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4">Детали заявки № {{ order.id }}</h1>
+            
+            {% if order %}
+                <!-- Карточка заявки (используем созданный компонент) -->
+                <div class="mb-4">
+                    {% include 'includes/order_card.html' with client_name=order.client_name date=order.date services=order.services master_name=master.name status=order.status order_id=order.id %}
+                </div>
+                
+                <!-- Действия -->
+                <div class="d-flex justify-content-end mt-4 gap-2">
+                    {% if user.is_staff %}
+                        <a href="{% url 'orders_list' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-arrow-left me-1"></i>К списку заявок
+                        </a>
+                        <button class="btn btn-success" id="confirmOrder">
+                            <i class="bi bi-check-circle me-1"></i>Подтвердить
+                        </button>
+                    {% else %}
+                        <a href="/" class="btn btn-primary">
+                            <i class="bi bi-house me-1"></i>На главную
+                        </a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <div class="alert alert-danger d-flex align-items-center" role="alert">
+                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                    <div>
+                        Заявка не найдена! Проверьте правильность номера заказа.
+                    </div>
+                </div>
+                <a href="/" class="btn btn-outline-primary mt-3">
+                    <i class="bi bi-arrow-left me-1"></i>Вернуться на главную
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        // Дополнительный скрипт для подтверждения заказа
+        document.getElementById('confirmOrder')?.addEventListener('click', function() {
+            if(confirm('Вы действительно хотите подтвердить эту заявку?')) {
+                // Здесь будет AJAX-запрос к серверу
+                alert('Заявка успешно подтверждена!');
+                location.replace('/thanks/');
+            }
+        });
+    </script>
+{% endblock %}
