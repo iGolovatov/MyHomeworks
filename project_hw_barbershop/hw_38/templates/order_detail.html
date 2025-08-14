@@ -7,11 +7,11 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h1 class="mb-4">Детали заявки № {{ order.id }}</h1>
-                
+
                 <div class="mb-4">
                     {% include 'includes/order_card.html' with client_name=order.client_name date=order.created_at services=order.services.all master_name=order.master.name status=order.status order_id=order.id %}
                 </div>
-                
+
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-light">
                         <h3 class="card-title mb-0">Детальная информация</h3>
@@ -57,10 +57,10 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-header bg-light">
-                        <h3 class="card-title mb-0">Выбранные услуги</h3>
+                        <h3 class="card-title mb-0">Выбранные услуги на сумму {{ order.total_price }}₽</h3>
                     </div>
                     <div class="card-body">
                         <div class="list-group">
@@ -78,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="d-flex justify-content-end mt-4">
                     <a href="{% url 'orders_list' %}" class="btn btn-outline-primary me-2">
                         <i class="bi bi-arrow-left me-1"></i>К списку заявок

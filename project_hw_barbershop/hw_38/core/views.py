@@ -1,12 +1,13 @@
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.db.models import Q, Sum
+from django.http import Http404
 from django.shortcuts import render, get_object_or_404
 from .models import Master, Review, Order
 
 
 def landing(request):
     masters = Master.objects.all()
-    reviews = Review.objects.all()[:6]
+    reviews = Review.objects.all().select_related('master')[:6]
     return render(request, 'landing.html', {'masters': masters, 'reviews': reviews})
 
 
@@ -16,7 +17,7 @@ def thanks(request):
 
 @login_required(login_url='/admin/login')
 def orders_list(request):
-    orders = Order.objects.all().order_by('-date_created')
+    orders = Order.objects.all().select_related('master').prefetch_related('services').order_by('-date_created')
 
     search_query = str(request.GET.get('search', ''))
     search_by_client = request.GET.get('search_by_client', 'on') == 'on'
@@ -49,5 +50,11 @@ def orders_list(request):
 
 @login_required
 def order_detail(request, order_id):
-    order = get_object_or_404(Order, pk=order_id)
+    order = Order.objects.select_related('master').prefetch_related('services').filter(id=order_id).annotate(
+        total_price=Sum('services__price'),
+    ).first()
+    if not order:
+        raise Http404(
+            "No Order matches the given query."
+        )
     return render(request, 'order_detail.html', {'order': order})
