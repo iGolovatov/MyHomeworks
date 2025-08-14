@@ -1,44 +1,95 @@
 {% extends 'base.html' %}
 
-{% block title %}Заказ № {{ order.id }}{% endblock %}
+{% block title %}Заявка № {{ order.id }}{% endblock %}
 
 {% block content %}
-    <div class="row justify-content-center">
-        <div class="col-lg-8">
-            <h1 class="mb-4">Детали заявки № {{ order.id }}</h1>
-            
-            {% if order %}
-                <!-- Карточка заявки (используем созданный компонент) -->
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <h1 class="mb-4">Детали заявки № {{ order.id }}</h1>
+                
                 <div class="mb-4">
-                    {% include 'includes/order_card.html' with client_name=order.client_name date=order.date services=order.services master_name=master.name status=order.status order_id=order.id %}
+                    {% include 'includes/order_card.html' with client_name=order.client_name date=order.created_at services=order.services.all master_name=order.master.name status=order.status order_id=order.id %}
                 </div>
                 
-                <!-- Действия -->
-                <div class="d-flex justify-content-end mt-4 gap-2">
-                    {% if user.is_staff %}
-                        <a href="{% url 'orders_list' %}" class="btn btn-outline-primary">
-                            <i class="bi bi-arrow-left me-1"></i>К списку заявок
-                        </a>
-                        <button class="btn btn-success" id="confirmOrder">
-                            <i class="bi bi-check-circle me-1"></i>Подтвердить
-                        </button>
-                    {% else %}
-                        <a href="/" class="btn btn-primary">
-                            <i class="bi bi-house me-1"></i>На главную
-                        </a>
-                    {% endif %}
-                </div>
-            {% else %}
-                <div class="alert alert-danger d-flex align-items-center" role="alert">
-                    <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                    <div>
-                        Заявка не найдена! Проверьте правильность номера заказа.
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-light">
+                        <h3 class="card-title mb-0">Детальная информация</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <h5 class="mb-3">Контактные данные</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Имя клиента:</span>
+                                        <strong>{{ order.client_name }}</strong>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Телефон:</span>
+                                        <strong>{{ order.phone }}</strong>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Email:</span>
+                                        <strong>{{ order.email|default:"Не указан" }}</strong>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h5 class="mb-3">Дополнительная информация</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Мастер:</span>
+                                        <strong>{{ order.master.name }}</strong>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span class="text-muted">Дата записи:</span>
+                                        <strong>{{ order.appointment_date|date:"d E Y, H:i" }}</strong>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <span class="text-muted d-block mb-1">Комментарий:</span>
+                                        <div class="bg-light p-3 rounded">
+                                            {{ order.comment|default:"Без дополнительных пожеланий" }}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a href="/" class="btn btn-outline-primary mt-3">
-                    <i class="bi bi-arrow-left me-1"></i>Вернуться на главную
-                </a>
-            {% endif %}
+                
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-light">
+                        <h3 class="card-title mb-0">Выбранные услуги</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="list-group">
+                            {% for service in order.services.all %}
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="mb-1">{{ service.name }}</h5>
+                                    <p class="text-muted mb-0">{{ service.description }}</p>
+                                </div>
+                                <span class="badge bg-primary rounded-pill px-3 py-2">
+                                    {{ service.price }} ₽
+                                </span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="d-flex justify-content-end mt-4">
+                    <a href="{% url 'orders_list' %}" class="btn btn-outline-primary me-2">
+                        <i class="bi bi-arrow-left me-1"></i>К списку заявок
+                    </a>
+                    {% if user.is_staff %}
+                    <a href="#" class="btn btn-success">
+                        <i class="bi bi-check-circle me-1"></i>Подтвердить
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

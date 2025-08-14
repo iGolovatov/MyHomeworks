@@ -10,16 +10,16 @@
             
             <!-- Статус с цветовой индикацией -->
             <span class="badge 
-                {% if status == 'новая' %}bg-warning text-dark
-                {% elif status == 'подтвержденная' %}bg-primary
-                {% elif status == 'выполненная' %}bg-success
-                {% elif status == 'отмененная' %}bg-danger
+                {% if status == 'new' %}bg-warning text-dark
+                {% elif status == 'confirmed' %}bg-primary
+                {% elif status == 'completed' %}bg-success
+                {% elif status == 'cancelled' %}bg-danger
                 {% else %}bg-secondary{% endif %} 
                 rounded-pill px-3 py-2">
-                {% if status == 'новая' %}Новая
-                {% elif status == 'подтвержденная' %}Подтверждена
-                {% elif status == 'выполненная' %}Выполнена
-                {% elif status == 'отмененная' %}Отменена
+                {% if status == 'new' %}Новая
+                {% elif status == 'confirmed' %}Подтверждена
+                {% elif status == 'completed' %}Выполнена
+                {% elif status == 'cancelled' %}Отменена
                 {% else %}Неизвестно{% endif %}
             </span>
         </div>

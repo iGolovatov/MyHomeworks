@@ -1,13 +1,68 @@
 {% extends 'base.html' %}
 
+{% block title %}Список заявок{% endblock %}
+
 {% block content %}
-    <h1 class="mb-4">Список заявок</h1>
-    
-    <div class="row">
-        {% for order in orders %}
-            <div class="col-md-6 col-lg-4 mb-4">
-                {% include 'includes/order_card.html' with client_name=order.client_name date=order.date services=order.services  master_name=master.name status=order.status order_id=order.id %}
+    <div class="container">
+        <h1 class="mb-4">Список заявок</h1>
+        
+        <div class="card mb-4">
+            <div class="card-body">
+                <form method="get" class="row g-3">
+                    <div class="col-md-6">
+                        <input type="text" name="search" class="form-control" 
+                               placeholder="Поиск..." value="{{ search_query }}">
+                    </div>
+                    
+                    <div class="col-md-6 d-flex align-items-center">
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="checkbox" name="search_by_client" id="searchByClient" 
+                                   {% if search_by_client %}checked{% endif %}>
+                            <label class="form-check-label" for="searchByClient">
+                                По имени клиента
+                            </label>
+                        </div>
+                        
+                        <div class="form-check me-3">
+                            <input class="form-check-input" type="checkbox" name="search_by_phone" id="searchByPhone" 
+                                   {% if search_by_phone %}checked{% endif %}>
+                            <label class="form-check-label" for="searchByPhone">
+                                По телефону
+                            </label>
+                        </div>
+                        
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="search_by_comment" id="searchByComment" 
+                                   {% if search_by_comment %}checked{% endif %}>
+                            <label class="form-check-label" for="searchByComment">
+                                По комментарию
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary ms-3">
+                            <i class="bi bi-search me-1"></i>Найти
+                        </button>
+                    </div>
+                </form>
             </div>
-        {% endfor %}
+        </div>
+        
+        <div class="row g-4">
+            {% for order in orders %}
+                <div class="col-md-6 col-lg-4">
+                    {% include 'includes/order_card.html' with client_name=order.client_name date=order.created_at services=order.services.all master_name=order.master.name status=order.status order_id=order.id %}
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        {% if search_query %}
+                            По вашему запросу заявки не найдены.
+                        {% else %}
+                            Заявок пока нет.
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock %}

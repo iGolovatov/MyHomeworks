@@ -2,7 +2,7 @@
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="#">
             <i class="bi bi-scissors me-2"></i>
-            Стальная Борода
+            Лысина
         </a>
         
         <!-- Гамбургер для мобильных устройств -->
@@ -20,18 +20,18 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#services">
-                        <i class="bi bi-scissors me-1"></i>Услуги
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#masters">
-                        <i class="bi bi-person-workspace me-1"></i>Мастера
+                    <a class="nav-link" href="{% url 'orders_list' %}">
+                        <i class="bi bi-scissors me-1"></i>Заказы
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#about">
                         <i class="bi bi-telephone me-1"></i>Контакты
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/login/">
+                        <i class="bi bi-person-workspace me-1"></i>Вход
                     </a>
                 </li>
                 

@@ -3,7 +3,7 @@ from django.db import models
 
 
 class StatusChoices(models.TextChoices):
-    NEW = ('new','Новая')
+    NEW = ('new', 'Новая')
     CONFIRMED = ('confirmed', 'Подтвержденная')
     CANCELLED = ('cancelled', 'Отмененная')
     COMPLETED = ('completed', 'Выполненная')
@@ -79,3 +79,4 @@ class Review(models.Model):
     class Meta:
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+        ordering = ['-created_at']
